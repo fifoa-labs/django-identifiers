@@ -1,0 +1,131 @@
+[project]
+name = "django-identifiers"
+version = "0.1.0"
+description = "Short, collision-resistant identifiers for Django with automatic generation, immutability, and bulk-create support."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+    { name = "FIFOA Labs", email = "labs@fifoa.com" },
+]
+keywords = [
+    "django",
+    "identifiers",
+    "codes",
+    "models",
+    "bulk-create",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Framework :: Django :: 5.2",
+    "Framework :: Django :: 6.0",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
+dependencies = [
+    "Django>=5.2,<6.1",
+]
+
+[project.urls]
+Homepage = "https://github.com/fifoa-labs/django-identifiers"
+Repository = "https://github.com/fifoa-labs/django-identifiers"
+Issues = "https://github.com/fifoa-labs/django-identifiers/issues"
+
+[build-system]
+requires = ["uv_build>=0.11.29,<0.12.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "django_identifiers"
+
+[dependency-groups]
+dev = [
+    "build>=1.5.0",
+    "django-stubs[compatible-mypy]>=6.0.7",
+    "mypy>=1.19.1",
+    "pytest>=9.1.1",
+    "pytest-cov>=7.1.0",
+    "pytest-django>=4.11.0",
+    "pytest-xdist>=3.8.0",
+    "ruff>=0.16.1",
+    "twine>=7.0.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+DJANGO_SETTINGS_MODULE = "tests.settings"
+addopts = [
+    "--strict-config",
+    "--strict-markers",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["django_identifiers"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+fail_under = 100
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+
+[tool.ruff.format]
+exclude = ["*.md"]
+
+[tool.ruff.lint]
+select = [
+    "F", "E", "W", "C90", "I", "N", "UP", "YTT", "ASYNC", "S", "BLE",
+    "FBT", "B", "A", "COM", "C4", "DTZ", "T10", "DJ", "EM", "EXE",
+    "FA", "ISC", "ICN", "G", "INP", "PIE", "T20", "PYI", "PT", "Q",
+    "RSE", "RET", "SLF", "SLOT", "SIM", "TID", "TCH", "INT", "PTH",
+    "ERA", "PD", "PGH", "PL", "TRY", "FLY", "PERF", "RUF",
+]
+ignore = [
+    "S101",
+    "RUF012",
+    "SIM102",
+    "COM812",
+]
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+force-single-line = false
+split-on-trailing-comma = true
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = [
+    "ANN",
+    "PLR2004",
+    "S101",
+]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+files = [
+    "src",
+    "tests",
+]
+plugins = [
+    "mypy_django_plugin.main",
+]
+
+[tool.django-stubs]
+django_settings_module = "tests.settings"
